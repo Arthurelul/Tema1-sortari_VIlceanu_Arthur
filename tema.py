@@ -2,7 +2,7 @@ import random
 import time
 
 
-#Bubble Sort
+# Bubble Sort
 def bubbleSort(list):
     l = list.copy()
     ok = True
@@ -11,13 +11,14 @@ def bubbleSort(list):
         for i in range(len(l) - 1):
             if l[i] > l[i + 1]:
                 ok = True
-                l[i],l[i+1]=l[i+1],l[i]
+                l[i], l[i + 1] = l[i + 1], l[i]
     return l
 
-#Count Sort
+
+# Count Sort
 def countSort(list):
     l = [0] * len(list)
-    max1 = max(list)+1
+    max1 = max(list) + 1
     contor = [0] * max1
 
     for i in list:
@@ -29,25 +30,26 @@ def countSort(list):
             cnt += 1
     return l
 
-#Radix Sort
+
+# Radix Sort
 def radCountSort(list, p):
-    n= len(list)
-    l=[0]*n
-    cont=[0]*10
-    for i in range (0,n):
-        x=(list[i]//p)
-        cont[x%10] +=1
-    for i in range (1, 10):
-        cont[i]+=cont[i-1]
-    i=n-1
-    while i>=0:
-        x=(list[i]//p)
-        l[cont[(x)%10]-1]=list[i]
-        cont[(x)%10]-=1
-        i-=1
-    i=0
-    for i in range (0,len(list)):
-        list[i]=l[i]
+    n = len(list)
+    l = [0] * n
+    cont = [0] * 10
+    for i in range(0, n):
+        x = (list[i] // p)
+        cont[x % 10] += 1
+    for i in range(1, 10):
+        cont[i] += cont[i - 1]
+    i = n - 1
+    while i >= 0:
+        x = (list[i] // p)
+        l[cont[(x) % 10] - 1] = list[i]
+        cont[(x) % 10] -= 1
+        i -= 1
+    i = 0
+    for i in range(0, len(list)):
+        list[i] = l[i]
 
 
 def radixSort(list):
@@ -59,7 +61,8 @@ def radixSort(list):
         p *= 10
     return l
 
-#Merge Sort
+
+# Merge Sort
 
 def merge(ls, l, m, r):
     a = m - l + 1
@@ -103,7 +106,8 @@ def mergeRec(list, l, r):
     mergeRec(list, m + 1, r)
     merge(list, l, m, r)
 
-#Quick Sort
+
+# Quick Sort
 
 def part(list, a, b):
     i = a - 1
@@ -130,40 +134,41 @@ def quickRec(list, a, b):
         quickRec(list, a, p - 1)
         quickRec(list, p + 1, b)
 
-teste=[]
+
+teste = []
 
 print("Introduceti numarul de teste dorite: ")
-nr_teste=int(input())
-print("Introduceti %s combinatii de forma [numar de valori] [valoare maxima] pentru fiecare test:" %nr_teste)
+nr_teste = int(input())
+print("Introduceti %s combinatii de forma [numar de valori] [valoare maxima] pentru fiecare test:" % nr_teste)
 for i in range(nr_teste):
-    test=input()
+    test = input()
     teste.append(tuple(map(int, test.split())))
 for i in range(len(teste)):
-    print("Testul %s: " %int(i+1)  )
-    print("Numar de variabile: %s" %teste[i][0] )
+    print("Testul %s: " % int(i + 1))
+    print("Numar de variabile: %s" % teste[i][0])
     print("Valoare maxima: %s" % teste[i][1])
-    list= [random.randrange(0,teste[i][1],1) for _ in range(teste[i][0])]
-    verif=sorted(list)
-    if teste[i][0]>10000:
+    list = [random.randrange(0, teste[i][1], 1) for _ in range(teste[i][0])]
+    verif = sorted(list)
+    if teste[i][0] > 10000:
         print("Prea multe valori pentru Bubble Sort")
     else:
-        start=time.time()
-        l=bubbleSort(list)
-        timp=float((time.time()-start))
-        if l!=verif:
+        start = time.time()
+        l = bubbleSort(list)
+        timp = float((time.time() - start))
+        if l != verif:
             print("Bubble Sort nu a sortat cu succes lista")
         else:
-            print("Timp Bubble Sort: %s " %timp)
-    if teste[i][1]>1000000:
+            print("Timp Bubble Sort: %s " % timp)
+    if teste[i][1] > 1000000:
         print("Valori prea mari pentru Count Sort")
     else:
-        start=time.time()
-        l=countSort(list)
-        timp=float((time.time()-start))
-        if l!=verif:
+        start = time.time()
+        l = countSort(list)
+        timp = float((time.time() - start))
+        if l != verif:
             print("Count Sort nu a sortat cu succes lista")
         else:
-            print("Timp Count Sort: %s " %timp)
+            print("Timp Count Sort: %s " % timp)
     start = time.time()
     l = radixSort(list)
     timp = float((time.time() - start))
@@ -185,4 +190,3 @@ for i in range(len(teste)):
         print("Quick Sort nu a sortat cu succes lista")
     else:
         print("Timp Quick Sort: %s " % timp)
-
